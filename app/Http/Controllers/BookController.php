@@ -58,4 +58,27 @@ class BookController extends Controller
         }
     }
 
+    public function edit_book(Request $request)
+    {
+        $book = Book::find($request->id);
+        return view('books.edit', ['book' => $book])->with('title', 'Edit Book');
+    }
+
+    public function update_book(Request $request)
+    {
+        try {
+            $request->validate([
+                'title' => 'required',
+                'author' => 'required',
+            ]);
+            $save = Book::find($request->id);
+            $save->title = $request->title;
+            $save->author = $request->author;
+            $save->save();
+            return back()->with('message', array('result' => "Book has been updated successfully", 'class' => "success"));
+        } catch (\Exception $e) {
+            return back()->with('message', array('result' => $e->getMessage(), 'class' => "danger"));
+        }
+    }
+
 }

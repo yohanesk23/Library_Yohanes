@@ -71,7 +71,12 @@
                                         <a href="{{route('delete_book',['id' => $book->id])}}"
                                             onclick="return confirm('Do you want to delete this?')"
                                             class="btn btn-danger btn-sm delete" data-id="{{$book->id}}"><i
-                                                class="fa fa-trash"></i></a>
+                                            class="fa fa-trash"></i>
+                                        </a>
+                                        <a href="{{route('edit_book',['id' => $book->id])}}"
+                                            class="btn btn-warning btn-sm edit" data-id="{{$book->id}}"><i
+                                            class="fa fa-pencil"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
