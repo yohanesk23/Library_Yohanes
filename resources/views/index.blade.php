@@ -49,6 +49,26 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Books</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped mt-4">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody id="bookList">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 <!-- Ending the content section -->
