@@ -6,6 +6,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    @include('books.components.alert')
                     <h5 class="card-title">Add a Book</h5>
                     <!-- Form for adding a book -->
                     <form id="bookForm" method="post" action="{{route('save_book')}}">

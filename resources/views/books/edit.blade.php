@@ -4,6 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    @include('books.components.alert')
                     <h5 class="card-title">Edit a Book</h5>
                     <form id="bookForm" method="post" action="{{route('update_book')}}">
                         @csrf
