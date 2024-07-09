@@ -35,4 +35,16 @@ class BookController extends Controller
         }
     }
 
+    public function index(Request $request)
+    {
+        if ($request->search) {
+            $books = Book::where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('author', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $books = Book::all();
+        }
+        return view('books.index', compact('books'))->with('title', 'Book List');
+    }
+
 }

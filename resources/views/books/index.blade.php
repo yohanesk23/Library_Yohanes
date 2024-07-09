@@ -1,4 +1,4 @@
-@extends('components.header') 
+@extends('books.components.header') 
 <!-- Extending the header component -->
 @section('content') 
 <!-- Starting the content section -->
@@ -63,6 +63,12 @@
                             </tr>
                             </thead>
                             <tbody id="bookList">
+                            @foreach($books as $book)
+                                <tr>
+                                    <td>{{$book->title}}</td>
+                                    <td>{{$book->author}}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::get('/',[App\Http\Controllers\BookController::class, 'index'])->name('home');
 Route::post('/book/save', [App\Http\Controllers\BookController::class, 'save_book'])->name('save_book');
 
