@@ -67,6 +67,12 @@
                                 <tr>
                                     <td>{{$book->title}}</td>
                                     <td>{{$book->author}}</td>
+                                    <td>
+                                        <a href="{{route('delete_book',['id' => $book->id])}}"
+                                            onclick="return confirm('Do you want to delete this?')"
+                                            class="btn btn-danger btn-sm delete" data-id="{{$book->id}}"><i
+                                                class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -47,4 +47,15 @@ class BookController extends Controller
         return view('books.index', compact('books'))->with('title', 'Book List');
     }
 
+    public function delete_book(Request $request)
+    {
+        try {
+            $book = Book::find($request->id);
+            $book->delete();
+            return back()->with('message', array('result' => "Book has been deleted successfully", 'class' => "success"));
+        } catch (\Exception $e) {
+            return back()->with('message', array('result' => $e->getMessage(), 'class' => "danger"));
+        }
+    }
+
 }
