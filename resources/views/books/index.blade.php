@@ -43,7 +43,7 @@
                                            required>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Search</button>
-                                <a class="btn btn-secondary mt-3">Clear</a>
+                                <a href="{{route('home')}}" class="btn btn-secondary mt-3">Clear</a>
                             </form>
                         </div>
                     </div>
