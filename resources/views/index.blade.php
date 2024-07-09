@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Add a Book</h5>
                     <!-- Form for adding a book -->
-                    <form id="bookForm" method="post">
+                    <form id="bookForm" method="post" action="{{route('save_book')}}">
                         @csrf 
                         <!-- CSRF token for security -->
                         <div class="form-group">
