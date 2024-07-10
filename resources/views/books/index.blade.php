@@ -54,22 +54,20 @@
                         <div class="card-body">
                             <h5 class="card-title">Export</h5>
                             <label>Choose Fields and Format</label>
-                            <form method="post" action="{{route('export_to_csv_or_xml')}}">
+                            <form id="exportForm" method="post" action="{{route('export_to_csv_or_xml')}}">
                                 @csrf
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex">
-                                        <div class="form-check ml-5" style="margin: 5px">
-                                            <input class="form-check-input" name="fields[]" type="checkbox" value="title"
-                                                   id="flexCheckChecked">
-                                            <label class="form-check-label" for="flexCheckChecked">
-                                                Title
-                                            </label>
-                                        </div>
                                         <div class="form-check ml-5" style="margin: 5px 40px 5px 5px">
-                                            <input class="form-check-input" name="fields[]" type="checkbox" value="author"
-                                                   id="flexCheckDefault1">
+                                            <input class="form-check-input" name="fields[]" type="checkbox" value="author" id="flexCheckDefault1" onclick="validateCheckboxes()">
                                             <label class="form-check-label" for="flexCheckDefault1">
                                                 Author
+                                            </label>
+                                        </div>
+                                        <div class="form-check ml-5" style="margin: 5px">
+                                            <input class="form-check-input" name="fields[]" type="checkbox" value="title" id="flexCheckChecked" onclick="validateCheckboxes()">
+                                            <label class="form-check-label" for="flexCheckChecked">
+                                                Title
                                             </label>
                                         </div>
                                     </div>
@@ -83,13 +81,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3">Export</button>
+                                <button type="submit" id="exportButton" class="btn btn-primary mt-3">Export</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+
+        <script>
+            function validateCheckboxes() {
+                const checkboxes = document.querySelectorAll('input[name="fields[]"]');
+                const exportButton = document.getElementById('exportButton');
+                let isChecked = false;
+
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        isChecked = true;
+                    }
+                });
+
+                exportButton.disabled = !isChecked;
+            }
+            // Call validateCheckboxes once on page load to initialize the state
+            document.addEventListener('DOMContentLoaded', validateCheckboxes);
+        </script>
         
         <div class="col-lg-12 mt-5">
             <div class="card">
