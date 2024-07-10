@@ -54,22 +54,22 @@
                         <div class="card-body">
                             <h5 class="card-title">Export</h5>
                             <label>Choose Fields and Format</label>
-                            <form method="post">
+                            <form method="post" action="{{route('export_to_csv_or_xml')}}">
                                 @csrf
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex">
-                                        <div class="form-check ml-5" style="margin: 5px 40px 5px 5px">
-                                            <input class="form-check-input" name="fields[]" type="checkbox" value="author"
-                                                   id="flexCheckDefault1">
-                                            <label class="form-check-label" for="flexCheckDefault1">
-                                                Author
-                                            </label>
-                                        </div>
                                         <div class="form-check ml-5" style="margin: 5px">
                                             <input class="form-check-input" name="fields[]" type="checkbox" value="title"
                                                    id="flexCheckChecked">
                                             <label class="form-check-label" for="flexCheckChecked">
                                                 Title
+                                            </label>
+                                        </div>
+                                        <div class="form-check ml-5" style="margin: 5px 40px 5px 5px">
+                                            <input class="form-check-input" name="fields[]" type="checkbox" value="author"
+                                                   id="flexCheckDefault1">
+                                            <label class="form-check-label" for="flexCheckDefault1">
+                                                Author
                                             </label>
                                         </div>
                                     </div>

@@ -81,4 +81,59 @@ class BookController extends Controller
         }
     }
 
+    public function export_to_csv_or_xml(Request $request)
+    {
+        $request->validate([
+            'fields' => 'required|array|min:1',
+            'export_type' => 'required|string|in:csv,xml',
+        ]);
+
+        $books = Book::all();
+        $fields = $request->fields;
+        $exportType = $request->export_type;
+
+        if ($exportType == 'csv') {
+            $filename = 'books.csv';
+            $handle = fopen($filename, 'w+');
+
+            // Write header
+            fputcsv($handle, $fields);
+
+            // Write data rows
+            foreach ($books as $book) {
+                $data = [];
+                foreach ($fields as $field) {
+                    $data[] = $book->$field;
+                }
+                fputcsv($handle, $data);
+            }
+
+            fclose($handle);
+
+            $headers = [
+                'Content-Type' => 'text/csv',
+            ];
+
+            return response()->download($filename, 'books.csv', $headers);
+
+        } else if ($exportType == 'xml') {
+            $xml = new \SimpleXMLElement('<books/>');
+
+            foreach ($books as $book) {
+                $bookXml = $xml->addChild('book');
+                foreach ($fields as $field) {
+                    $bookXml->addChild($field, $book->$field);
+                }
+            }
+
+            $filename = 'books.xml';
+            $xml->asXML($filename);
+
+            $headers = [
+                'Content-Type' => 'text/xml',
+            ];
+
+            return response()->download($filename, 'books.xml', $headers);
+        }
+    }
 }
