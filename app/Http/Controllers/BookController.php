@@ -45,7 +45,10 @@ class BookController extends Controller
     * Display a list of books.
     *
     * If a search query is provided, filter books by title or author.
-    * Otherwise, retrieve all books. Pass the books and a title to the view.
+    * Additionally, sort the books based on the specified sort criteria:
+    * 'title_asc', 'title_desc', 'author_asc', or 'author_desc'.
+    * If no search query or sort criteria is provided, retrieve all books.
+    * Pass the books and a title to the view.
     *
     * @param Request $request The incoming request object.
     * @return \Illuminate\View\View The view displaying the list of books.
@@ -79,6 +82,7 @@ class BookController extends Controller
         $books = $query->get();
         return view('books.index', compact('books'))->with('title', 'Book List');
     }
+
 
     /**
     * Delete a book from the database.
