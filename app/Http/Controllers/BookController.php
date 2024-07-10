@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * BookController handles various operations related to books,
+ * including displaying a list of books, deleting a book, editing a book,
+ * updating a book, and exporting book data to CSV or XML formats.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Book;
