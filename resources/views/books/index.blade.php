@@ -37,14 +37,24 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Search</h5>
-                            <form method="get">
+                            <form method="get" action="{{ route('home') }}">
                                 <div class="form-group">
                                     <label for="author">Search by Title / Author</label>
-                                    <input value="{{request()->search}}" type="text" class="form-control" name="search"
-                                           placeholder="Search .." required>
+                                    <input value="{{ request()->search }}" type="text" class="form-control" name="search" placeholder="Search ..">
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Search</button>
-                                <a href="{{route('home')}}" class="btn btn-secondary mt-3">Clear</a>
+                                <a href="{{ route('home') }}" class="btn btn-secondary mt-3">Clear</a>
+                                <div class="btn-group mt-3">
+                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Sort by
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><button class="dropdown-item" type="submit" name="sort_by" value="title_asc">Title (A-Z)</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="sort_by" value="title_desc">Title (Z-A)</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="sort_by" value="author_asc">Author (A-Z)</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="sort_by" value="author_desc">Author (Z-A)</button></li>
+                                    </ul>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -75,7 +85,6 @@
                                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                             <input type="radio" class="btn-check" name="export_type" id="btnradio1" value="csv" checked>
                                             <label class="btn btn-outline-primary waves-effect" for="btnradio1">CSV</label>
-
                                             <input type="radio" class="btn-check" name="export_type" id="btnradio2" value="xml">
                                             <label class="btn btn-outline-primary waves-effect" for="btnradio2">XML</label>
                                         </div>
@@ -87,26 +96,8 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-
-        <script>
-            function validateCheckboxes() {
-                const checkboxes = document.querySelectorAll('input[name="fields[]"]');
-                const exportButton = document.getElementById('exportButton');
-                let isChecked = false;
-
-                checkboxes.forEach((checkbox) => {
-                    if (checkbox.checked) {
-                        isChecked = true;
-                    }
-                });
-
-                exportButton.disabled = !isChecked;
-            }
-            // Call validateCheckboxes once on page load to initialize the state
-            document.addEventListener('DOMContentLoaded', validateCheckboxes);
-        </script>
-        
         <div class="col-lg-12 mt-5">
             <div class="card">
                 <div class="card-body">
@@ -144,6 +135,24 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function validateCheckboxes() {
+                const checkboxes = document.querySelectorAll('input[name="fields[]"]');
+                const exportButton = document.getElementById('exportButton');
+                let isChecked = false;
+
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        isChecked = true;
+                    }
+                });
+
+                exportButton.disabled = !isChecked;
+            }
+            // Call validateCheckboxes once on page load to initialize the state
+            document.addEventListener('DOMContentLoaded', validateCheckboxes);
+        </script>
     </div>
 @endsection
 <!-- Ending the content section -->

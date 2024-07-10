@@ -52,17 +52,31 @@ class BookController extends Controller
     */
     public function index(Request $request)
     {
-        // Check if there is a search query in the request
+        $query = Book::query();
+        
         if ($request->search) {
-            // Search for books by title or author matching the search query
-            $books = Book::where('title', 'like', '%' . $request->search . '%')
-                ->orWhere('author', 'like', '%' . $request->search . '%')
-                ->get();
-        } else {
-            // Retrieve all books
-            $books = Book::all();
+            $query->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('author', 'like', '%' . $request->search . '%');
         }
-        // Return the view with the list of books and the page title
+        
+        if ($request->sort_by) {
+            switch ($request->sort_by) {
+                case 'title_asc':
+                    $query->orderBy('title', 'asc');
+                    break;
+                case 'title_desc':
+                    $query->orderBy('title', 'desc');
+                    break;
+                case 'author_asc':
+                    $query->orderBy('author', 'asc');
+                    break;
+                case 'author_desc':
+                    $query->orderBy('author', 'desc');
+                    break;
+            }
+        }
+        
+        $books = $query->get();
         return view('books.index', compact('books'))->with('title', 'Book List');
     }
 
