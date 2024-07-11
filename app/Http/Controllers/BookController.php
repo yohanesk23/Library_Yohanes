@@ -83,7 +83,6 @@ class BookController extends Controller
         return view('books.index', compact('books'))->with('title', 'Book List');
     }
 
-
     /**
     * Delete a book from the database.
     *

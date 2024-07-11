@@ -1,17 +1,22 @@
 @extends('books.components.header') 
 <!-- Extending the header component -->
+
 @section('content') 
 <!-- Starting the content section -->
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    @include('books.components.alert')
+                    @include('books.components.alert') 
+                    <!-- Including an alert component for messages -->
                     <h5 class="card-title">Add a Book</h5>
+                    <!-- Title of the section -->
+                    
                     <!-- Form for adding a book -->
                     <form id="bookForm" method="post" action="{{route('save_book')}}">
                         @csrf 
                         <!-- CSRF token for security -->
+                        
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" id="title"
@@ -37,13 +42,21 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Search</h5>
+                            <!-- Title for the search section -->
+                            
+                            <!-- Form for searching books -->
                             <form method="get" action="{{ route('home') }}">
                                 <div class="form-group">
                                     <label for="author">Search by Title / Author</label>
                                     <input value="{{ request()->search }}" type="text" class="form-control" name="search" placeholder="Search ..">
+                                    <!-- Input for search query -->
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Search</button>
+                                <!-- Search button -->
                                 <a href="{{ route('home') }}" class="btn btn-secondary mt-3">Clear</a>
+                                <!-- Clear search button -->
+
+                                <!-- Dropdown for sorting options -->
                                 <div class="btn-group mt-3">
                                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Sort by
@@ -59,15 +72,22 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Export</h5>
+                            <!-- Title for the export section -->
+                            
                             <label>Choose Fields and Format</label>
+                            <!-- Label for field selection and format -->
+                            
+                            <!-- Form for exporting data -->
                             <form id="exportForm" method="post" action="{{route('export_to_csv_or_xml')}}">
                                 @csrf
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex">
+                                        <!-- Checkbox for selecting fields to export -->
                                         <div class="form-check ml-5" style="margin: 5px 40px 5px 5px">
                                             <input class="form-check-input" name="fields[]" type="checkbox" value="author" id="flexCheckDefault1" onclick="validateCheckboxes()">
                                             <label class="form-check-label" for="flexCheckDefault1">
@@ -81,6 +101,8 @@
                                             </label>
                                         </div>
                                     </div>
+                                    
+                                    <!-- Radio buttons for selecting export format -->
                                     <div>
                                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                             <input type="radio" class="btn-check" name="export_type" id="btnradio1" value="csv" checked>
@@ -91,6 +113,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" id="exportButton" class="btn btn-primary mt-3">Export</button>
+                                <!-- Export button -->
                             </form>
                         </div>
                     </div>
@@ -102,7 +125,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Manage Books</h5>
+                    <!-- Title for the manage books section -->
+                    
                     <div class="table-responsive">
+                        <!-- Table for displaying the list of books -->
                         <table class="table table-striped mt-4">
                             <thead>
                                 <tr>
@@ -117,11 +143,13 @@
                                         <td>{{$book->title}}</td>
                                         <td>{{$book->author}}</td>
                                         <td>
+                                            <!-- Delete button -->
                                             <a href="{{route('delete_book',['id' => $book->id])}}"
                                                onclick="return confirm('Do you want to delete this?')"
                                                class="btn btn-danger btn-sm delete" data-id="{{$book->id}}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
+                                            <!-- Edit button -->
                                             <a href="{{route('edit_book',['id' => $book->id])}}"
                                                class="btn btn-warning btn-sm edit" data-id="{{$book->id}}">
                                                 <i class="fa fa-pencil"></i>
