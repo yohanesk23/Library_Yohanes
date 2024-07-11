@@ -133,5 +133,56 @@ class BookControllerTest extends TestCase
             $response->assertStatus(200);
         }
     }
+
+    public function testSearchBooks()
+    {
+        // Create 10 books using the factory
+        $books = Book::factory()->count(10)->create();
+
+        // Use the title of the first book for the search query
+        $response = $this->get('/?search=' . $books->first()->title);
+        
+        // Assert the response status is 200 (OK)
+        $response->assertStatus(200);
+        
+        // Assert that the response contains the title of the first book
+        $response->assertSee($books->first()->title);
+    }
+    
+    // Test sorting books by title in ascending order
+    public function testSortBooksByTitleAsc()
+    {
+        // Create 3 books with specific titles
+        Book::factory()->create(['title' => 'A Title', 'author' => 'Author A']);
+        Book::factory()->create(['title' => 'B Title', 'author' => 'Author B']);
+        Book::factory()->create(['title' => 'C Title', 'author' => 'Author C']);
+
+        // Send a GET request to sort by title in ascending order
+        $response = $this->get('/?sort=title_asc');
+        
+        // Assert the response status is 200 (OK)
+        $response->assertStatus(200);
+        
+        // Assert that the titles are in ascending order
+        $response->assertSeeInOrder(['A Title', 'B Title', 'C Title']);
+    }
+
+    // Test sorting books by author in ascending order
+    public function testSortBooksByAuthorAsc()
+    {
+        // Create 3 books with specific authors
+        Book::factory()->create(['title' => 'Title A', 'author' => 'Author A']);
+        Book::factory()->create(['title' => 'Title B', 'author' => 'Author B']);
+        Book::factory()->create(['title' => 'Title C', 'author' => 'Author C']);
+
+        // Send a GET request to sort by author in ascending order
+        $response = $this->get('/?sort=author_asc');
+        
+        // Assert the response status is 200 (OK)
+        $response->assertStatus(200);
+        
+        // Assert that the authors are in ascending order
+        $response->assertSeeInOrder(['Author A', 'Author B', 'Author C']);
+    }
 }
 ?>
